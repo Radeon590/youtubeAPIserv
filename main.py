@@ -43,9 +43,7 @@ def serve_client(client_sock, cid):
         return child_pid
     # Children request
     request = read_request(client_sock)
-    if request is None:
-        print(f'Client #{cid} unexpectedly disconnected')
-    else:
+    if not request is None:
         response = handle_request(request)
         write_responce(client_sock, response, cid)
     os._exit(0)
@@ -79,7 +77,6 @@ def handle_request(request):
 def write_responce(client_sock, responce, cid):
     client_sock.sendall(responce)
     client_sock.close()
-    print(f'Client #{cid} has been served')
 
 
 #
