@@ -8,7 +8,6 @@ from youtube_transcript_api import YouTubeTranscriptApi
 def run_server(ip='192.168.0.101', port=4658):
     serv_socket = create_serv_socket(ip, port)
     name = serv_socket.getsockname()
-    print(name[0])
     active_children = set()
     cid = 0
     while True:
@@ -32,8 +31,6 @@ def create_serv_socket(ip, port):
 #
 def accept_client_conn(serv_socket, cid):
     client_sock, client_addr = serv_socket.accept()
-    print(f'Client #{cid} connected '
-          f'{client_addr[0]}:{client_addr[1]}')
     return client_sock
 
 
