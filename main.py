@@ -4,7 +4,7 @@ import time
 import os
 from youtube_transcript_api import YouTubeTranscriptApi
 
-
+# 192.168.0.101    92.38.130.249
 def run_server(ip='92.38.130.249', port=4658):
     serv_socket = create_serv_socket(ip, port)
     name = serv_socket.getsockname()
@@ -71,7 +71,7 @@ def read_request(client_sock, delimiter=b'!'):
 #
 def handle_request(request):
     time.sleep(5)
-    return get_subs()#request[::-1]
+    return get_subs(bytearray.decode(request))
 
 
 def write_responce(client_sock, responce, cid):
@@ -88,9 +88,14 @@ def reap_child(active_children):
 
 
 #
-def get_subs():
-    subs = YouTubeTranscriptApi.get_transcript("SW14tOda_kI")
-    subs = str(subs) + '_'
+def get_subs(video_id):
+    subs = YouTubeTranscriptApi.get_transcript(video_id)
+    subs = str(subs)
+    subs = '{"SubtitlesList":' + subs + '}'
+    #subs = subs.replace("'", '"')
+    #subs = subs.replace('"', '""')
+    #subs = '@"' + subs + '"'
+    print(video_id)
     return bytearray(subs.encode())
 #############################################
 #hostname = socket.gethostname()
