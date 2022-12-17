@@ -4,8 +4,7 @@ import time
 import os
 from youtube_transcript_api import YouTubeTranscriptApi
 
-# 192.168.0.101    92.38.130.249
-def run_server(ip='92.38.130.249', port=4658):
+def run_server(ip='', port=4658):
     serv_socket = create_serv_socket(ip, port)
     name = serv_socket.getsockname()
     active_children = set()
